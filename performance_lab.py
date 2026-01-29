@@ -8,16 +8,20 @@
 
 def most_frequent(numbers):
     # Your code here
-    pass
+    from collections import Counter
+    if not numbers:
+        return None
+    count = Counter(numbers)
+    return count.most_common(1)[0][0]
 
 """
 Time and Space Analysis for problem 1:
-- Best-case:
-- Worst-case:
-- Average-case:
-- Space complexity:
-- Why this approach?
-- Could it be optimized?
+- Best-case: O(n) – need to count every element
+- Worst-case: O(n) – counting all elements takes linear time
+- Average-case: O(n)
+- Space complexity: O(n) for storing counts in the Counter
+- Why this approach? Counter efficiently counts occurrences
+- Could it be optimized? This is already efficient; alternative is manual dictionary counting
 """
 
 
@@ -30,16 +34,22 @@ Time and Space Analysis for problem 1:
 
 def remove_duplicates(nums):
     # Your code here
-    pass
+    seen = set()
+    result = []
+    for num in nums:
+        if num not in seen:
+            seen.add(num)
+            result.append(num)
+    return result
 
 """
 Time and Space Analysis for problem 2:
-- Best-case:
-- Worst-case:
-- Average-case:
-- Space complexity:
-- Why this approach?
-- Could it be optimized?
+- Best-case:O(n) – traverse list once
+- Worst-case: O(n) – traverse entire list, all unique
+- Average-case:O(n)
+- Space complexity:O(n) for set and result list
+- Why this approach?Preserves order while removing duplicates efficiently
+- Could it be optimized?Already efficient; using OrderedDict could be an alternative
 """
 
 
@@ -53,16 +63,23 @@ Time and Space Analysis for problem 2:
 
 def find_pairs(nums, target):
     # Your code here
-    pass
+    seen = set()
+    pairs = set()
+    for num in nums:
+        complement = target - num
+        if complement in seen:
+            pairs.add(tuple(sorted((num, complement))))
+        seen.add(num)
+    return list(pairs)
 
 """
 Time and Space Analysis for problem 3:
-- Best-case:
-- Worst-case:
-- Average-case:
-- Space complexity:
-- Why this approach?
-- Could it be optimized?
+Best-case: O(n) – traverse list once
+- Worst-case: O(n) – traverse list once
+- Average-case: O(n)
+- Space complexity: O(n) for seen set and pairs set
+- Why this approach? Using a set allows constant-time lookup for complements
+- Could it be optimized? Already O(n); naive nested loop would be O(n^2)
 """
 
 
@@ -76,15 +93,28 @@ Time and Space Analysis for problem 3:
 
 def add_n_items(n):
     # Your code here
-    pass
+    capacity = 2
+    arr = [None] * capacity
+    size = 0
+    for i in range(n):
+        if size == capacity:
+            # Resize: double capacity
+            print(f"Resizing from {capacity} to {capacity*2}")
+            capacity *= 2
+            new_arr = [None] * capacity
+            for j in range(size):
+                new_arr[j] = arr[j]
+            arr = new_arr
+        arr[size] = i
+        size += 1
 
 """
 Time and Space Analysis for problem 4:
-- When do resizes happen?
-- What is the worst-case for a single append?
-- What is the amortized time per append overall?
-- Space complexity:
-- Why does doubling reduce the cost overall?
+- When do resizes happen? When size reaches capacity
+- Worst-case for single append: O(n) during a resize
+- Amortized time per append overall: O(1) because doubling spreads cost
+- Space complexity: O(n) for the array
+- Why does doubling reduce cost overall? Fewer resizes as array grows exponentially
 """
 
 
@@ -99,14 +129,19 @@ Time and Space Analysis for problem 4:
 
 def running_total(nums):
     # Your code here
-    pass
+    total = 0
+    result = []
+    for num in nums:
+        total += num
+        result.append(total)
+    return result
 
 """
 Time and Space Analysis for problem 5:
-- Best-case:
-- Worst-case:
-- Average-case:
-- Space complexity:
-- Why this approach?
-- Could it be optimized?
+- Best-case: O(n) – traverse list once
+- Worst-case: O(n)
+- Average-case: O(n)
+- Space complexity: O(n) for result list
+- Why this approach? Simple linear traversal accumulates sums
+- Could it be optimized? Already optimal; cannot avoid storing results
 """
